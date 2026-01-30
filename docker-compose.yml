@@ -1,0 +1,43 @@
+services:
+  freepbx:
+    build: .
+    container_name: freepbx
+    restart: unless-stopped
+    network_mode: "host"
+    cap_add:
+      - NET_ADMIN
+      - SYS_NICE
+    environment:
+      - DB_HOST=127.0.0.1
+      - DB_USER=freepbxuser
+      - DB_PASS=freepbxpass
+      - DB_NAME=asterisk
+    volumes:
+      - ./data/asterisk:/var/lib/asterisk
+      - ./data/backup:/var/spool/asterisk/backup
+      - ./data/etc:/etc/asterisk
+      - ./data/web:/var/www/html
+      - /etc/localtime:/etc/localtime:ro
+    depends_on:
+      mariadb:
+        condition: service_healthy
+
+  mariadb:
+    image: mariadb:10.11
+    container_name: freepbx-db
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpass
+      - MYSQL_DATABASE=asterisk
+      - MYSQL_USER=freepbxuser
+      - MYSQL_PASSWORD=freepbxpass
+    volumes:
+      - ./data/db:/var/lib/mysql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 10

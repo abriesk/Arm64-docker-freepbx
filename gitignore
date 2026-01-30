@@ -1,0 +1,16 @@
+# Data volumes
+data/
+
+# Downloaded source archives
+*.tar.gz
+
+# Environment file with secrets
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
