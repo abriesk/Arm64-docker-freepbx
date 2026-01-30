@@ -1,4 +1,4 @@
-# FreePBX Docker for ARM64 (Raspberry Pi)
+#  FreePBX Docker (ARM64 & x86_64)
 
 A working Docker Compose setup for FreePBX 17 with Asterisk 22 on ARM64 architecture. Built from source — no prebuilt binaries required.
 
