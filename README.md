@@ -20,13 +20,10 @@ A working Docker Compose setup for FreePBX 17 with Asterisk 22 on ARM64 architec
 
 ```bash
 # Clone the repo
-git clone https://github.com/yourusername/freepbx-arm64-docker.git
-cd freepbx-arm64-docker
+git clone https://github.com/abriesk/Arm64-docker-freepbx.git
+cd Arm64-docker-freepbx
 
-# Download Asterisk source (not included due to size)
-wget https://downloads.asterisk.org/pub/telephony/asterisk/releases/asterisk-22.2.0.tar.gz
-
-# Build and run
+# Build and run (Asterisk source downloaded automatically)
 docker compose build
 docker compose up -d
 
@@ -94,7 +91,6 @@ docker compose up -d
 ├── Dockerfile              # Asterisk + FreePBX build
 ├── docker-compose.yml      # Service orchestration
 ├── docker-entrypoint.sh    # Startup script
-├── asterisk-22.2.0.tar.gz  # (download separately)
 └── data/                   # Persistent volumes (created on first run)
 ```
 
