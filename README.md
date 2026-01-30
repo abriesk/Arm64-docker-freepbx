@@ -160,7 +160,7 @@ docker compose build --no-cache
 - **Gemini** — Initial writing of code base files
 - **Claude** — Working rewrite of code base files
 - **Sangoma** — Asterisk and FreePBX
-- **You** — Testing and deployment
+- **Guerilla Cognitive Commander-in-Chimp** — Testing and deployment and initial spark
 
 ## Contributing
 
