@@ -17,7 +17,13 @@ services:
       - ./data/backup:/var/spool/asterisk/backup
       - ./data/etc:/etc/asterisk
       - ./data/web:/var/www/html
+      - ./data/logs:/var/log/asterisk
       - /etc/localtime:/etc/localtime:ro
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
     depends_on:
       mariadb:
         condition: service_healthy
@@ -35,6 +41,11 @@ services:
       - MYSQL_PASSWORD=freepbxpass
     volumes:
       - ./data/db:/var/lib/mysql
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     healthcheck:
       test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]

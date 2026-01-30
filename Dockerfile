@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y \
     apache2 mariadb-client \
     php8.2 php8.2-curl php8.2-cli php8.2-common php8.2-mysql \
     php8.2-gd php8.2-mbstring php8.2-intl php8.2-xml php-pear \
-    nodejs npm cron \
+    nodejs npm cron logrotate \
     && rm -rf /var/lib/apt/lists/*
 
 # 2. Build Asterisk from Source
@@ -60,6 +60,10 @@ RUN wget http://mirror.freepbx.org/modules/packages/freepbx/freepbx-${FREEPBX_VE
 # 7. Copy Entrypoint
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
+
+# 8. Setup Logrotate
+COPY logrotate-asterisk /etc/logrotate.d/asterisk
+RUN chmod 644 /etc/logrotate.d/asterisk
 
 WORKDIR /var/www/html
 EXPOSE 80 5060/udp 5160/udp 10000-20000/udp
